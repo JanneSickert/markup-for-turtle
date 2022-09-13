@@ -1,3 +1,4 @@
+from fileinput import close
 import turtle
 
 VALID_TAGS = ("rectangle", "pad", "circle", "fill", "border", "size")
@@ -14,14 +15,33 @@ class Parser:
         self.xml = xml
         self.obj = {}
     
-    def parse_xml(self):
-        xml2 = self.xml.split("<", 1)[1]
-        xml3 = xml2.split(">", 1)
-        root_tag = xml3[0]
-        rest = xml[1]
-        close_tag_index = rest.find(root_tag)
-        close_tag = xml[1][close_tag_index : close_tag_index + len(root_tag)]
-        print(close_tag)
+    def parse_root_element(self):
+        b1 = self.xml.find("<")
+        b2 = self.xml.find(">")
+        root_tag = self.xml[b1+1:b2]
+        close_tag_index = self.xml.find("</" + root_tag + ">")
+        content = self.xml[len(root_tag) + 2 : close_tag_index]
+        result = {"root_tag": root_tag, "content": content}
+        return result
+
+    def is_tag(self, xml):
+        if xml.find("<"):
+            return True
+        else:
+            return False
+
+    def parse_xml(self) -> str:
+        content = self.xml
+        while is_tag(content):
+            flag = True
+            while flag:
+                r = self.parse_root_element(content)
+                # erstelle geparste elemente.
+                length = len(r["root_tag"]) * 2 + 5 + len(r["content"])
+                if length < len(content):
+                    content = content[length:]
+                else:
+                    flag = False
 
 if __name__ == "__main__":
     print("start MARKUP-FOR-TURTLE")
