@@ -1,6 +1,3 @@
-from fileinput import close
-import turtle
-
 VALID_TAGS = ("rectangle", "pad", "circle", "fill", "border", "size")
 VALID_SHAPES = (VALID_TAGS[0], VALID_TAGS[2])
 VALID_SETTINGS = (VALID_TAGS[1], VALID_TAGS[3], VALID_TAGS[4], VALID_TAGS[5])
@@ -39,16 +36,19 @@ def parse_xml(parsed_element : dict, tree):
     r = []
     while True:
         r.append(parse_root_element(parsed_element["content"]))
-        if len(parsed_element["content"]) - len(r[-1]) == 0:
+        length_sub = len(r[-1]["content"]) + 5 + len(r[-1]["root_tag"]) * 2
+        length = len(parsed_element["content"]) - length_sub
+        print(r[-1]["root_tag"], r[-1]["content"])
+        if not length > 0:
             break
         else:
-            parsed_element["content"] = parsed_element["content"][len(r[-1]):]
+            parsed_element["content"] = parsed_element["content"][length_sub:]
     tree.set_root_tag(parsed_element["root_tag"])
     for e in r:
         if e["root_tag"] in VALID_SHAPES:
             tree.child = parse_xml({"root_tag": e["root_tag"], "content": e["content"]}, tree)
         elif e["root_tag"] in VALID_SETTINGS:
-            tree.add_setting([e["root_tag"]], ["content"])
+            tree.add_setting(e["root_tag"], e["content"])
         else:
             print("ERROR: Invalid tag")
     return tree
