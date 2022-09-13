@@ -3,6 +3,22 @@ import turtle
 
 VALID_TAGS = ("rectangle", "pad", "circle", "fill", "border", "size")
 VALID_SHAPES = (VALID_TAGS[0], VALID_TAGS[2])
+VALID_SETTINGS = (VALID_TAGS[1], VALID_TAGS[3], VALID_TAGS[4], VALID_TAGS[5])
+
+class Tree:
+    def __init__(self):
+        self.child = None
+        self.root_tag = None
+        self.settings = {}
+
+    def set_root_tag(self, root_tag):
+        self.root_tag = root_tag
+
+    def add_setting(self, setting, value):
+        self.settings[setting] = value
+
+    def draw(self):
+        pass
 
 def is_xml_valid(xml):
     for e in VALID_TAGS:
@@ -10,38 +26,32 @@ def is_xml_valid(xml):
             return False
     return True
 
-class Parser:
-    def __init__(self, xml):
-        self.xml = xml
-        self.obj = {}
-    
-    def parse_root_element(self):
-        b1 = self.xml.find("<")
-        b2 = self.xml.find(">")
-        root_tag = self.xml[b1+1:b2]
-        close_tag_index = self.xml.find("</" + root_tag + ">")
-        content = self.xml[len(root_tag) + 2 : close_tag_index]
-        result = {"root_tag": root_tag, "content": content}
-        return result
+def parse_root_element(xml):
+    b1 = xml.find("<")
+    b2 = xml.find(">")
+    root_tag = xml[b1+1:b2]
+    close_tag_index = xml.find("</" + root_tag + ">")
+    content = xml[len(root_tag) + 2 : close_tag_index]
+    result = {"root_tag": root_tag, "content": content}
+    return result
 
-    def is_tag(self, xml):
-        if xml.find("<"):
-            return True
+def parse_xml(parsed_element : dict, tree):
+    r = []
+    while True:
+        r.append(parse_root_element(parsed_element["content"]))
+        if len(parsed_element["content"]) - len(r[-1]) == 0:
+            break
         else:
-            return False
-
-    def parse_xml(self) -> str:
-        content = self.xml
-        while is_tag(content):
-            flag = True
-            while flag:
-                r = self.parse_root_element(content)
-                # erstelle geparste elemente.
-                length = len(r["root_tag"]) * 2 + 5 + len(r["content"])
-                if length < len(content):
-                    content = content[length:]
-                else:
-                    flag = False
+            parsed_element["content"] = parsed_element["content"][len(r[-1]):]
+    tree.set_root_tag(parsed_element["root_tag"])
+    for e in r:
+        if e["root_tag"] in VALID_SHAPES:
+            tree.child = parse_xml({"root_tag": e["root_tag"], "content": e["content"]}, tree)
+        elif e["root_tag"] in VALID_SETTINGS:
+            tree.add_setting([e["root_tag"]], ["content"])
+        else:
+            print("ERROR: Invalid tag")
+    return tree
 
 if __name__ == "__main__":
     print("start MARKUP-FOR-TURTLE")
@@ -53,8 +63,7 @@ if __name__ == "__main__":
     while i < len(xml_lines):
         merged_xml += xml_lines[i].lstrip()
         i = i + 1
-    if is_xml_valid(xml):
-        parser = Parser(merged_xml)
-        parser.parse_xml()
+    if is_xml_valid(merged_xml):
+        parse_xml(parse_root_element(merged_xml), Tree())
     else:
         print("Syntax Error in Markup.xml")
