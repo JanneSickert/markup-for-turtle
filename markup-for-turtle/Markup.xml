@@ -1,4 +1,7 @@
 <circle>
     <size>30</size>
     <fill>red</fill>
+    <rectangle>
+        <size>15</size>
+    </rectangle>
 </circle>
