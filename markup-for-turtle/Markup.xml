@@ -3,5 +3,6 @@
     <fill>red</fill>
     <rectangle>
         <size>15</size>
+        <border>blue</border>
     </rectangle>
 </circle>

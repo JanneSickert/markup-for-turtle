@@ -1,31 +1,8 @@
+import TreeSource
+
 VALID_TAGS = ("rectangle", "pad", "circle", "fill", "border", "size")
 VALID_SHAPES = (VALID_TAGS[0], VALID_TAGS[2])
 VALID_SETTINGS = (VALID_TAGS[1], VALID_TAGS[3], VALID_TAGS[4], VALID_TAGS[5])
-
-class Tree:
-    def __init__(self):
-        self.child = None
-        self.root_tag = None
-        self.settings = {}
-
-    def set_root_tag(self, root_tag):
-        self.root_tag = root_tag
-
-    def add_setting(self, setting, value):
-        self.settings[setting] = value
-
-    def draw(self):
-        pass
-
-    def print_values(self, level):
-        space = ""
-        i = 0
-        while i < level:
-            space += "    "
-            i += 1
-        print(space, self.root_tag, ":", str(self.settings))
-        if self.child is not None:
-            self.child.print_values(level + 1)
 
 def is_xml_valid(xml):
     for e in VALID_TAGS:
@@ -55,7 +32,7 @@ def parse_xml(parsed_element : dict, tree):
     tree.set_root_tag(parsed_element["root_tag"])
     for e in r:
         if e["root_tag"] in VALID_SHAPES:
-            tree.child = parse_xml({"root_tag": e["root_tag"], "content": e["content"]}, Tree())
+            tree.child = parse_xml({"root_tag": e["root_tag"], "content": e["content"]}, TreeSource.Tree())
         elif e["root_tag"] in VALID_SETTINGS:
             tree.add_setting(e["root_tag"], e["content"])
         else:
@@ -73,7 +50,8 @@ if __name__ == "__main__":
         merged_xml += xml_lines[i].lstrip()
         i = i + 1
     if is_xml_valid(merged_xml):
-        tree = parse_xml(parse_root_element(merged_xml), Tree())
+        tree = parse_xml(parse_root_element(merged_xml), TreeSource.Tree())
         tree.print_values(1)
+        tree.draw()
     else:
         print("Syntax Error in Markup.xml")
