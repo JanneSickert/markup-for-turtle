@@ -51,6 +51,7 @@ if __name__ == "__main__":
         i = i + 1
     if is_xml_valid(merged_xml):
         tree = parse_xml(parse_root_element(merged_xml), TreeSource.Tree())
+        tree.clean_values()
         tree.print_values(1)
         tree.draw()
     else:

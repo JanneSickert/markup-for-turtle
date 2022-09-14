@@ -1,8 +1,16 @@
-<rectangle>
-    <size>350</size>
-    <border>red</border>
+<circle>
+    <size>150</size>
+    <fill>red</fill>
     <circle>
-        <size>110</size>
+        <size>100</size>
         <fill>green</fill>
+        <circle>
+            <size>50</size>
+            <fill>blue</fill>
+            <circle>
+                <pad>20</pad>
+                <border>red</border>
+            </circle>
+        </circle>
     </circle>
-</rectangle>
+</circle>

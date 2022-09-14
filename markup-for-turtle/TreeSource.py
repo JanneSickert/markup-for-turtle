@@ -61,3 +61,14 @@ class Tree:
         print(space, self.root_tag, ":", str(self.settings))
         if self.child is not None:
             self.child.print_values(level + 1)
+    
+    def clean_values(self):
+        TAGS = ("pad", "fill", "border", "size")
+        for e in TAGS:
+            try:
+                if "<" in self.settings[e]:
+                    self.settings[e] = self.settings[e].split("<")[0]
+            except:
+                pass
+        if self.child != None:
+            self.child.clean_values()
