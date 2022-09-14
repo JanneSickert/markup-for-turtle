@@ -1,0 +1,12 @@
+<circle>
+    <size>150</size>
+    <fill>red</fill>
+    <circle>
+        <size>100</size>
+        <fill>green</fill>
+        <circle>
+            <size>50</size>
+            <fill>blue</fill>
+        </circle>
+    </circle>
+</circle>
