@@ -55,3 +55,21 @@ def circle_with_color(r, fill_color_value):
     t.begin_fill()
     t.circle(r)
     t.end_fill()
+
+def two_colors_circle(r, fill, border):
+    circle(r, border)
+    r -= 1
+    circle(r, border)
+    r -= 1
+    circle(r, border)
+    r -= 1
+    circle_with_color(r, fill)
+
+def two_colors_rechteck(r, fill, border):
+    rectangle(r, border)
+    r -= 1
+    rectangle(r, border)
+    r -= 1
+    rectangle(r, border)
+    r -= 1
+    rectangle_with_color(r, fill)

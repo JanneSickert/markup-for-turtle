@@ -1,6 +1,7 @@
 <circle>
     <size>150</size>
     <fill>red</fill>
+    <border>green</border>
     <circle>
         <size>100</size>
         <fill>green</fill>

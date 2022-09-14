@@ -17,13 +17,23 @@ class Tree:
             try:
                 try:
                     try:
-                        self.settings["fill"]
+                        f = self.settings["fill"]
+                        b = self.settings["border"]
+                        Draw.two_colors_rechteck(int(self.settings["size"]), self.settings["fill"], self.settings["border"])
+                    except:
+                        pass
+                    try:
                         Draw.rectangle_with_color(self.settings["pad"], self.settings["fill"])
                     except:
                         Draw.rectangle(self.settings["pad"], self.settings["border"])
                 except:
                     try:
-                        self.settings["fill"]
+                        f = self.settings["fill"]
+                        b = self.settings["border"]
+                        Draw.two_colors_rechteck(int(self.settings["size"]), self.settings["fill"], self.settings["border"])
+                    except:
+                        pass
+                    try:
                         Draw.rectangle_with_color(int(self.settings["size"]), self.settings["fill"])
                     except:
                         Draw.rectangle(int(self.settings["size"]), self.settings["border"])
@@ -31,18 +41,35 @@ class Tree:
                 print("ERROR: Markup Tags bei <rectangle> sind unvollständig")
         else:
             try:
+                f = True
                 try:
                     try:
-                        self.settings["fill"]
-                        Draw.circle_with_color(self.settings["pad"], self.settings["fill"])
+                        f = self.settings["fill"]
+                        b = self.settings["border"]
+                        Draw.two_colors_circle(int(self.settings["size"]), self.settings["fill"], self.settings["border"])
+                        f = False
                     except:
-                        Draw.circle(self.settings["pad"], self.settings["border"])
+                        pass
+                    try:
+                        if f:
+                            Draw.circle_with_color(self.settings["pad"], self.settings["fill"])
+                    except:
+                        if f:
+                            Draw.circle(self.settings["pad"], self.settings["border"])
                 except:
                     try:
-                        self.settings["fill"]
-                        Draw.circle_with_color(int(self.settings["size"]), self.settings["fill"])
+                        f = self.settings["fill"]
+                        b = self.settings["border"]
+                        Draw.two_colors_circle(int(self.settings["size"]), self.settings["fill"], self.settings["border"])
+                        f = False
                     except:
-                        Draw.circle(int(self.settings["size"]), self.settings["border"])
+                        pass
+                    try:
+                        if f:
+                            Draw.circle_with_color(int(self.settings["size"]), self.settings["fill"])
+                    except:
+                        if f:
+                            Draw.circle(int(self.settings["size"]), self.settings["border"])
             except:
                 print("ERROR: Markup Tags bei <circle> sind unvollständig")
         if self.child is not None:
