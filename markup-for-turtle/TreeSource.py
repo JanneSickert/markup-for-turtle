@@ -37,6 +37,8 @@ class Tree:
                         Draw.circle(int(self.settings["size"]), self.settings["border"])
             except:
                 print("ERROR: Markup Tags bei <circle> sind unvollständig")
+        if self.child is not None:
+            self.child.draw()
 
     def print_values(self, level):
         space = ""
