@@ -16,7 +16,11 @@ class Tree:
         if self.root_tag == "rectangle":
             try:
                 try:
-                    self.settings["pad"]
+                    try:
+                        self.settings["fill"]
+                        Draw.rectangle_with_color(self.settings["pad"], self.settings["fill"])
+                    except:
+                        Draw.rectangle(self.settings["pad"], self.settings["border"])
                 except:
                     try:
                         self.settings["fill"]
@@ -28,7 +32,11 @@ class Tree:
         else:
             try:
                 try:
-                    self.settings["pad"]
+                    try:
+                        self.settings["fill"]
+                        Draw.circle_with_color(self.settings["pad"], self.settings["fill"])
+                    except:
+                        Draw.circle(self.settings["pad"], self.settings["border"])
                 except:
                     try:
                         self.settings["fill"]
@@ -38,6 +46,10 @@ class Tree:
             except:
                 print("ERROR: Markup Tags bei <circle> sind unvollständig")
         if self.child is not None:
+            try:
+                self.child.settings["pad"] = int(self.settings["size"]) - int(self.child.settings["pad"])
+            except:
+                pass
             self.child.draw()
 
     def print_values(self, level):

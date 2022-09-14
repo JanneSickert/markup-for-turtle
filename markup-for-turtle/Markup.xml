@@ -1,8 +1,8 @@
 <circle>
-    <size>30</size>
-    <fill>red</fill>
+    <size>150</size>
+    <border>red</border>
     <rectangle>
-        <size>15</size>
-        <border>blue</border>
+        <size>100</size>
+        <fill>blue</fill>
     </rectangle>
 </circle>

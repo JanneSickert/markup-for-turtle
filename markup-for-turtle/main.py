@@ -55,3 +55,6 @@ if __name__ == "__main__":
         tree.draw()
     else:
         print("Syntax Error in Markup.xml")
+    i = 0
+    while i < 300000000:
+        i = i + 1
