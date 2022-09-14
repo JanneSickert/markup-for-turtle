@@ -15,28 +15,35 @@ class Tree:
     def draw(self):
         if self.root_tag == "rectangle":
             try:
+                f = True
                 try:
                     try:
                         f = self.settings["fill"]
                         b = self.settings["border"]
                         Draw.two_colors_rechteck(int(self.settings["size"]), self.settings["fill"], self.settings["border"])
+                        f = False
                     except:
                         pass
                     try:
-                        Draw.rectangle_with_color(self.settings["pad"], self.settings["fill"])
+                        if f:
+                            Draw.rectangle_with_color(self.settings["pad"], self.settings["fill"])
                     except:
-                        Draw.rectangle(self.settings["pad"], self.settings["border"])
+                        if f:
+                            Draw.rectangle(self.settings["pad"], self.settings["border"])
                 except:
                     try:
                         f = self.settings["fill"]
                         b = self.settings["border"]
                         Draw.two_colors_rechteck(int(self.settings["size"]), self.settings["fill"], self.settings["border"])
+                        f = False
                     except:
                         pass
                     try:
-                        Draw.rectangle_with_color(int(self.settings["size"]), self.settings["fill"])
+                        if f:
+                            Draw.rectangle_with_color(int(self.settings["size"]), self.settings["fill"])
                     except:
-                        Draw.rectangle(int(self.settings["size"]), self.settings["border"])
+                        if f:
+                            Draw.rectangle(int(self.settings["size"]), self.settings["border"])
             except:
                 print("ERROR: Markup Tags bei <rectangle> sind unvollständig")
         else:
