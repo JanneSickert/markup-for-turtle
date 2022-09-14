@@ -1,8 +1,8 @@
-<circle>
-    <size>150</size>
+<rectangle>
+    <size>350</size>
     <border>red</border>
-    <rectangle>
-        <size>100</size>
-        <fill>blue</fill>
-    </rectangle>
-</circle>
+    <circle>
+        <size>110</size>
+        <fill>green</fill>
+    </circle>
+</rectangle>
