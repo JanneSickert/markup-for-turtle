@@ -1,18 +1,12 @@
-<rectangle>
-    <size>500</size>
-    <fill>black</fill>
-    <rectangle>
-        <size>250</size>
-        <fill>red</fill>
-        <border>green</border>
+<circle>
+    <size>150</size>
+    <fill>red</fill>
+    <circle>
+        <size>100</size>
+        <fill>green</fill>
         <circle>
-            <size>100</size>
-            <fill>#292</fill>
-            <border>#FF0</border>
-            <circle>
-                <pad>20</pad>
-                <fill>#0FF</fill>
-            </circle>
+            <size>50</size>
+            <fill>blue</fill>
         </circle>
-    </rectangle>
-</rectangle>
+    </circle>
+</circle>
